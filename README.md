@@ -1,1 +1,2 @@
 # digitallibrary
+This is a basic level project written in Django using Python. I'm a beginner trying to learn web development and have used django for backend development.The front-end is acheived through Bootstrap.I have added authentication for the admin to log in to the site and perform actions such as adding books removing books checkout and return books. Whereas other users only have the option to view books and search for the books they want. 
