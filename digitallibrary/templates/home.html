@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}
+  <title>E-Library</title>
+{% endblock title %}
+{% block content %}
+
+<style>
+body {
+    background-image: url('/static/images/bg3.jpg');
+    }
+
+</style>
+{% if not user.is_authenticated %}
+<meta http-equiv = "refresh" content = "0; url = {% url 'logout' %}" />
+
+{%endif %}
+{% if  user.is_authenticated %}
+
+  <body class="text-center">
+  </br>
+  </br>
+  </br>
+  </br>
+  <main role="main" class="inner cover">
+    <h1 class="cover-heading" style="color: #FAFAFC;">Digital Library.</h1>
+    </br>
+    </br>
+    <p class="lead font-weight-bold" style="color: #FAFAFC;">Nothing is pleasanter than exploring a library.</br></br></br></br></br></br></br>Everything you need for better future and success has already been written. And guess what? All you have to do is go to the library.</p>
+    </br>
+
+  </main>
+
+  <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p></p>
+    </div>
+  </footer>
+</div>
+</body>
+
+{% endif %}
+
+{% endblock content%}

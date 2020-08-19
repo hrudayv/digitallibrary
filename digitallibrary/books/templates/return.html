@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}
+  <title>Return Books</title>
+{% endblock title %}
+{% block content %}
+{% if not user.is_authenticated %}
+<meta http-equiv = "refresh" content = "0; url = {% url 'logout' %}" />
+
+{%endif %}
+{% if  user.is_authenticated %}
+
+
+</br>
+  <div class="container">
+    <h1 class="text-center">{{returnbookstext}}</h1>
+
+</br>
+{%if messages%}
+  {%for message in messages%}
+  <div class="alert alert-success" role="alert">
+    {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+    {%endfor%}
+{%endif%}
+  <form method = "POST" action="{% url 'returned' %}">
+    {% csrf_token %}
+
+      <div class="form-group row">
+        <label class="col-lg-2">Book Number</label>
+        <input type="number" class="form-control col-lg-8"  name ="booknum" placeholder="Enter Book Number">
+      </div>
+      <div class="form-group row">
+        <label class="col-lg-2" >Items Returned</label>
+        <input type="number" class="form-control col-lg-8"  name="noc" placeholder="Enter No of Items to be Returned">
+      </div>
+      <div class="text-center ">
+        <button type="submit" class="btn btn-primary btn-lg active ">Submit</button>
+      </div>
+    </form>
+
+
+  </br>
+    <table class="table table-hover">
+<thead>
+  <tr>
+    <th scope="col">Book Number</th>
+    <th scope="col">Book Name</th>
+    <th scope="col">Author Name</th>
+    <th scope="col">Stock Available</th>
+
+
+  </tr>
+</thead>
+<tbody>
+  {%for obj in objects2%}
+  <tr>
+    <th scope="row">{{obj.booknum}}</th>
+    <td>{{obj.bookname}}</td>
+    <td>{{obj.authorname}}</td>
+    <td>{{obj.stockavail}}</td>
+
+
+
+  </tr>
+    {%endfor%}
+  </tbody>
+  </table>
+  <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-end">
+    <li class="page-item "><a class="page-link" href="?pg=1" >First Page</a></li>
+    {% if objects2.has_previous %}
+      <li class="page-item"><a class="page-link" href="?pg={{objects2.previous_page_number}}">{{objects2.previous_page_number}}</a></li>
+    {% endif %}
+    <li class="page-item"><a class="page-link" href="?pg={{objects2.number}}">{{objects2.number}}</a></li>
+    {% if objects2.has_next %}
+      <li class="page-item"><a class="page-link" href="?pg={{objects2.next_page_number}}">{{objects2.next_page_number}}</a></li>
+    {% endif %}
+    <li class="page-item">
+      <a class="page-link" href="?pg={{objects2.paginator.num_pages}}">Last Page</a>
+    </li>
+  </ul>
+  </nav>
+  </div>
+  {% endif %}
+{% endblock content%}
